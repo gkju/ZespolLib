@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net5.0</TargetFramework>
+        <LangVersion>default</LangVersion>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Faker.Net" Version="1.5.136" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.0-preview.3" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore.Abstractions" Version="6.0.0-preview.3" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore.Analyzers" Version="6.0.0-preview.3.21201.2" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="6.0.0-preview.3" />
+      <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="6.0.0-preview2" />
+      <PackageReference Include="YamlDotNet.NetCore" Version="1.0.0" />
+    </ItemGroup>
+
+</Project>
