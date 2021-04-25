@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.Globalization;
 using System.Xml;
 using System.Xml.Serialization;
@@ -12,6 +13,7 @@ namespace ZespolLib
         public string Nazwisko { get; set; }
         public DateTime DataUrodzenia { get; set; }
         [XmlAttribute]
+        [Key]
         public string PESEL { get; set; }
         public Plcie Plec { get; set; }
         

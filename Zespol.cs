@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
@@ -16,27 +18,37 @@ namespace ZespolLib
     [Serializable]
     public partial class Zespol : IZapisywalne
     {
+        [Key]
+        public string Id { get; set; }
+
         public string Nazwa { get; set; }
-        public int LiczbaCzlonkow { get; set; }
+
+        [NotMapped]
+        public int LiczbaCzlonkow
+        {
+            get
+            {
+                return Czlonkowie.Count;
+            }
+        }
+
         public KierownikZespolu Kierownik { get; set; }
-        public List<CzlonekZespolu> Czlonkowie { get; set; }
+        public List<CzlonekZespolu> Czlonkowie { get; set; } = new List<CzlonekZespolu>();
         
         public Zespol()
         {
-            
+            Id = Guid.NewGuid().ToString();
         }
-        public Zespol(string PodanaNazwa = "", KierownikZespolu PodanyKierownik = null)
+        public Zespol(string PodanaNazwa = "", KierownikZespolu PodanyKierownik = null) : this()
         {
             Nazwa = PodanaNazwa;
             Kierownik = PodanyKierownik;
-            Czlonkowie = new List<CzlonekZespolu>();
         }
         
-        public Zespol(string PodanaNazwa = "", KierownikZespolu PodanyKierownik = null, params Zespol[] Zespoly)
+        public Zespol(string PodanaNazwa = "", KierownikZespolu PodanyKierownik = null, params Zespol[] Zespoly) : this()
         {
             Nazwa = PodanaNazwa;
             Kierownik = PodanyKierownik;
-            Czlonkowie = new List<CzlonekZespolu>();
             foreach(var zespol in Zespoly)
             {
                 foreach (var czlonek in zespol.Czlonkowie)
@@ -49,7 +61,6 @@ namespace ZespolLib
         public void DodajCzlonka(CzlonekZespolu NowyCzlonek)
         {
             Czlonkowie.Add(NowyCzlonek);
-            ++LiczbaCzlonkow;
         }
         
         public override string ToString()
