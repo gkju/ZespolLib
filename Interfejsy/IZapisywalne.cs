@@ -4,18 +4,18 @@ using System.IO;
 
 namespace ZespolLib.Interfejsy
 {
-    public interface IZapisywalne
+    public interface IZapisywalne<T>
     {
         void ZapiszBin(string sciezka);
-        Object OdczytajBin(string sciezka);
+        T OdczytajBin(string sciezka);
         
         void ZapiszXML(string sciezka);
-        Object OdczytajXML(string sciezka);
+        T OdczytajXML(string sciezka);
         
         void ZapiszJSON(string sciezka);
-        Object OdczytajJSON(string sciezka);
+        T OdczytajJSON(string sciezka);
         
         void ZapiszYaml(string sciezka);
-        Object OdczytajYaml(string sciezka);
+        T OdczytajYaml(string sciezka);
     }
 }

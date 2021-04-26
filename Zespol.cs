@@ -16,7 +16,7 @@ using ZespolLib.Interfejsy;
 namespace ZespolLib
 {
     [Serializable]
-    public partial class Zespol : IZapisywalne
+    public partial class Zespol : IZapisywalne<Zespol>
     {
         [Key]
         public string Id { get; set; }

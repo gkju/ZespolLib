@@ -2,6 +2,7 @@
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text.Json;
+using System.Text.RegularExpressions;
 using System.Xml.Serialization;
 using YamlDotNet.Serialization;
 using YamlDotNet.Serialization.NamingConventions;
@@ -10,18 +11,25 @@ namespace ZespolLib
 {
     public partial class Zespol
     {
-        public object OdczytajBin(string sciezka)
+        public static Zespol OdczytajBinStatic(string sciezka)
         {
+            sciezka = Regex.Unescape(sciezka);
             var path = Path.GetFullPath(sciezka);
             IFormatter formatter = new BinaryFormatter();
             Stream stream = new FileStream(path, FileMode.Open);
-            Zespol zespol = (Zespol) formatter.Deserialize(stream);
+            Zespol zespol = (Zespol)formatter.Deserialize(stream);
             stream.Close();
             return zespol;
         }
 
+        public Zespol OdczytajBin(string sciezka)
+        {
+            return OdczytajBinStatic(sciezka);
+        }
+
         public void ZapiszBin(string sciezka)
         {
+            sciezka = Regex.Unescape(sciezka);
             var path = Path.GetFullPath(sciezka);
             IFormatter formatter = new BinaryFormatter();
             Stream stream = new FileStream(path, FileMode.Create);
@@ -29,9 +37,15 @@ namespace ZespolLib
             stream.Flush();
             stream.Close();
         }
-        
-        public object OdczytajXML(string sciezka)
+
+        public Zespol OdczytajXML(string sciezka)
         {
+            return OdczytajXMLStatic(sciezka);
+        }
+
+        public static Zespol OdczytajXMLStatic(string sciezka)
+        {
+            sciezka = Regex.Unescape(sciezka);
             var path = Path.GetFullPath(sciezka);
             XmlSerializer serializer = new XmlSerializer(typeof(Zespol));
             Stream stream = new FileStream(path, FileMode.Open);
@@ -42,6 +56,7 @@ namespace ZespolLib
 
         public void ZapiszXML(string sciezka)
         {
+            sciezka = Regex.Unescape(sciezka);
             var path = Path.GetFullPath(sciezka);
             XmlSerializer serializer = new XmlSerializer(typeof(Zespol));
             Stream stream = new FileStream(path, FileMode.Create);
@@ -49,18 +64,25 @@ namespace ZespolLib
             stream.Flush();
             stream.Close();
         }
-        
-        public object OdczytajJSON(string sciezka)
+
+        public Zespol OdczytajJSON(string sciezka)
         {
+            return OdczytajJSONStatic(sciezka);
+        }
+        
+        public static Zespol OdczytajJSONStatic(string sciezka)
+        {
+            sciezka = Regex.Unescape(sciezka);
             var path = Path.GetFullPath(sciezka);
             StreamReader sr = File.OpenText(path);
-            Zespol zespol = (Zespol) JsonSerializer.Deserialize<Zespol>(sr.ReadToEnd());
+            Zespol zespol = JsonSerializer.Deserialize<Zespol>(sr.ReadToEnd());
             sr.Close();
             return zespol;
         }
 
         public void ZapiszJSON(string sciezka)
         {
+            sciezka = Regex.Unescape(sciezka);
             var path = Path.GetFullPath(sciezka);
             StreamWriter sw = File.CreateText(path);
             string output = JsonSerializer.Serialize<Zespol>(this);
@@ -68,9 +90,15 @@ namespace ZespolLib
             sw.Flush();
             sw.Close();
         }
-        
-        public object OdczytajYaml(string sciezka)
+
+        public Zespol OdczytajYaml(string sciezka)
         {
+            return OdczytajYamlStatic(sciezka);
+        }
+        
+        public static Zespol OdczytajYamlStatic(string sciezka)
+        {
+            sciezka = Regex.Unescape(sciezka);
             var deserializer = new DeserializerBuilder()
                 .WithNamingConvention(new PascalCaseNamingConvention())
                 .Build();
@@ -83,6 +111,7 @@ namespace ZespolLib
 
         public void ZapiszYaml(string sciezka)
         {
+            sciezka = Regex.Unescape(sciezka);
             var serializer = new SerializerBuilder()
                 .WithNamingConvention(new PascalCaseNamingConvention())
                 .Build();
