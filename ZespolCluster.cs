@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -15,6 +16,7 @@ namespace ZespolLib
         public List<ZespolArchive> ZespolHistory { get; set; } = new List<ZespolArchive>();
 
         private Zespol _Zespol { get; set; }
+        
         public Zespol Zespol
         {
             get

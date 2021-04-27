@@ -24,6 +24,7 @@ namespace ZespolLib
         public string Nazwa { get; set; }
 
         [NotMapped]
+        [YamlIgnore]
         public int LiczbaCzlonkow
         {
             get
